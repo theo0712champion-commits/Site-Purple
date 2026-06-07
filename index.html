@@ -1,1 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purple FA – FiveM</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dark: #8B6B1F;
+    --dark: #0A0B0E;
+    --dark2: #111318;
+    --dark3: #181B22;
+    --dark4: #1F2330;
+    --text: #E8E6DF;
+    --text-muted: #7A7D8A;
+    --accent: #2C6FFF;
+    --red: #D63636;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
 
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 64px;
+    background: rgba(10,11,14,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+  .nav-logo span { color: var(--text); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    padding: 0.5rem 1.4rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* HERO */
+  #accueil {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 0 5vw;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(44,111,255,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(201,168,76,0.06) 0%, transparent 60%),
+      linear-gradient(160deg, #0A0B0E 0%, #111318 50%, #0A0B0E 100%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-content { position: relative; max-width: 720px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 0.35rem 0.9rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .hero-badge-dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 12vw, 10rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.4rem;
+  }
+  .hero-title .accent { color: var(--gold); display: block; }
+  .hero-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.8rem;
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(232,230,223,0.7);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--dark);
+    padding: 0.85rem 2.2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-secondary {
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    padding: 0.85rem 2.2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { background: rgba(201,168,76,0.1); transform: translateY(-2px); }
+  .hero-stats {
+    position: absolute; bottom: 3rem; right: 5vw;
+    display: flex; gap: 3rem;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+  }
+  .stat-divider {
+    width: 1px;
+    background: rgba(201,168,76,0.2);
+    align-self: stretch;
+  }
+
+  /* SECTIONS */
+  section { padding: 7rem 5vw; }
+  .section-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  /* PRESENTATION */
+  #presentation { background: var(--dark2); }
+  .pres-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+  .pres-text p {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(232,230,223,0.7);
+    margin-bottom: 1.2rem;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .feature-card {
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 1.5rem;
+    transition: border-color 0.3s, transform 0.2s;
+    cursor: default;
+  }
+  .feature-card:hover {
+    border-color: rgba(201,168,76,0.4);
+    transform: translateY(-3px);
+  }
+  .feature-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .feature-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .feature-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* REGLEMENT */
+  #reglement { background: var(--dark); }
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .rule-card {
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.1);
+    padding: 2.5rem 2rem;
+    text-decoration: none;
+    transition: border-color 0.3s, transform 0.2s;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+  .rule-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .rule-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-4px); }
+  .rule-card:hover::before { transform: scaleX(1); }
+  .rule-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+  .rule-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+  .rule-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .rule-link {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* REJOINDRE */
+  #rejoindre { background: var(--dark2); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 32px; left: 12.5%; right: 12.5%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.3;
+  }
+  .step {
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .step-num {
+    width: 64px; height: 64px;
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    position: relative;
+    z-index: 1;
+  }
+  .step h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.7rem;
+  }
+  .step p {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .connect-box {
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 1.2rem 2rem;
+    margin-top: 0.8rem;
+    display: inline-block;
+    font-family: 'Barlow Condensed', monospace;
+    font-size: 0.9rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  /* DISCORD CTA */
+  .discord-cta {
+    background: linear-gradient(135deg, #1a1d24 0%, #0e1016 100%);
+    border: 1px solid rgba(201,168,76,0.15);
+    margin: 0 5vw;
+    padding: 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .discord-cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(201,168,76,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .discord-cta .section-title { margin-bottom: 1rem; }
+  .discord-cta p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+  }
+  .btn-discord {
+    background: #5865F2;
+    color: white;
+    padding: 1rem 3rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-discord:hover { background: #4752c4; transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    padding: 2.5rem 5vw;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+  .footer-logo span { color: var(--text-muted); }
+  footer p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* Scroll animation */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .pres-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .rules-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .hero-stats { position: static; margin-top: 3rem; justify-content: flex-start; }
+    #accueil { flex-direction: column; justify-content: center; padding-top: 80px; min-height: auto; padding-bottom: 4rem; }
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Purple <span>FA</span></div>
+  <ul class="nav-links">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#presentation">Présentation</a></li>
+    <li><a href="#reglement">Règlement</a></li>
+    <li><a href="#rejoindre">Rejoindre</a></li>
+  </ul>
+  <a href="https://discord.gg/MjeSzqsKE2" class="nav-cta" target="_blank">Discord</a>
+</nav>
+
+<section id="accueil">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Serveur FiveM Français — 128 Slots
+    </div>
+    <h1 class="hero-title">
+      Purple<br>
+      <span class="accent">FA</span>
+    </h1>
+    <p class="hero-sub">Roleplay</p>
+    <p class="hero-desc">
+      Une expérience RP immersive, sans limites. Rejoins une communauté francophone passionnée et construis ta propre histoire dans Los Santos.
+    </p>
+    <div class="hero-btns">
+      <a href="#rejoindre" class="btn-primary">Rejoindre le serveur</a>
+      <a href="https://discord.gg/MjeSzqsKE2" class="btn-secondary" target="_blank">Discord</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-val"></div>
+        <div class="stat-label"></div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-val"></div>
+        <div class="stat-label"></div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-val"></div>
+        <div class="stat-label"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="presentation">
+  <div class="section-tag">Qui sommes-nous</div>
+  <h2 class="section-title">Présentation</h2>
+  <div class="pres-grid">
+    <div class="pres-text reveal">
+      <p>Purple FA est un serveur FiveM francophone dédié à une expérience de roleplay immersive et de qualité. Notre objectif&nbsp;: créer un univers crédible et vivant où chaque joueur peut construire sa propre histoire.</p>
+      <p>Que tu sois civil, policier, médecin ou malfrat, chaque rôle compte et contribue à la vie de la ville. Nous mettons tout en œuvre pour garantir une ambiance sérieuse, respectueuse et amusante.</p>
+      <p>Rejoins une communauté passionnée et grandissante, portée par une équipe investie et à l'écoute de ses joueurs.</p>
+    </div>
+    <div class="features-grid reveal">
+      <div class="feature-card">
+        <span class="feature-icon">🚔</span>
+        <h3>Los Santos Police Department</h3>
+        <p>Rejoins les forces de l'ordre et fais régner la loi dans la ville.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🏥</span>
+        <h3>Services Médicaux</h3>
+        <p>SAMU et médecins au service des habitants. Rôle clé du serveur.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">💼</span>
+        <h3>Emplois & Entreprises</h3>
+        <p>Multiples métiers légaux et illégaux pour vivre ton RP pleinement.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌆</span>
+        <h3>Économie Réaliste</h3>
+        <p>Système économique immersif avec marché, banques et propriétés.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reglement">
+  <div class="section-tag">À respecter</div>
+  <h2 class="section-title">Règlement</h2>
+  <div class="rules-grid">
+    <a class="rule-card reveal" href="https://theo0712champion-commits.github.io/Reglement_General/" target="_blank">
+      <span class="rule-icon">⚖️</span>
+      <h3>Général</h3>
+      <p>Règles de base applicables à tous les joueurs du serveur, sans exception.</p>
+      <span class="rule-link">Lire le règlement →</span>
+    </a>
+    <a class="rule-card reveal" href="https://theo0712champion-commits.github.io/Reglement-Legal/" target="_blank">
+      <span class="rule-icon">🚔</span>
+      <h3>Légal</h3>
+      <p>Règles pour les métiers légaux&nbsp;: police, médecin, civil.</p>
+      <span class="rule-link">Lire le règlement →</span>
+    </a>
+    <a class="rule-card reveal" href="https://theo0712champion-commits.github.io/Reglement-illegal/" target="_blank">
+      <span class="rule-icon">💀</span>
+      <h3>Illégal</h3>
+      <p>Règles encadrant les activités criminelles et le banditisme.</p>
+      <span class="rule-link">Lire le règlement →</span>
+    </a>
+  </div>
+</section>
+
+<section id="rejoindre">
+  <div class="section-tag">Prêt à jouer ?</div>
+  <h2 class="section-title">Comment rejoindre</h2>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <h3>Télécharge FiveM</h3>
+      <p>Rends-toi sur le site officiel de FiveM et télécharge le client. Assure-toi d'avoir GTA V installé et à jour.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <h3>Rejoins le Discord</h3>
+      <p>Passe sur notre Discord pour découvrir les annonces et la vie de la communauté avant de jouer.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <h3>Lis le règlement</h3>
+      <p>Notre règlement est important et facile à lire pour les nouveaux arrivants.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">04</div>
+      <h3>Connecte-toi</h3>
+      <p>Recherche le serveur dans FiveM&nbsp;:</p>
+      <div class="connect-box">Purple FA</div>
+    </div>
+  </div>
+</section>
+
+<div id="discord" style="padding: 0 0 7rem 0;">
+  <div class="discord-cta">
+    <div class="section-tag">🎮 Rejoins la communauté</div>
+    <h2 class="section-title">Toujours là pour toi</h2>
+    <p>Annonces, support et vie de la communauté — tout se passe sur notre Discord. C'est le point de départ incontournable.</p>
+    <a href="https://discord.gg/MjeSzqsKE2" class="btn-discord" target="_blank">Rejoindre le Discord</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Purple <span>FA</span></div>
+  <p>© 2025 Purple FA — Serveur FiveM Français. Tous droits réservés.</p>
+  <p>Non affilié à Rockstar Games ou FiveM.</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
